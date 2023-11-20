@@ -3,7 +3,6 @@ import { getTripsData, postTrips } from "../model/database.js";
 const handelPostTrip = async (req, res) => {
   try {
     let {
-      data,
       from,
       to,
       busOwnerID,
@@ -17,7 +16,6 @@ const handelPostTrip = async (req, res) => {
       busName,
     } = req.body;
     let postTripsResponse = await postTrips(
-      data,
       from,
       to,
       busOwnerID,
@@ -31,7 +29,7 @@ const handelPostTrip = async (req, res) => {
       busName
     );
     if (postTripsResponse.acknowledged) {
-      res.send("Trip Added");
+      res.status(201).send("Trip Added");
     } else {
       res.send("Fail");
     }
@@ -42,7 +40,31 @@ const handelPostTrip = async (req, res) => {
 
 const handelGetTrips = async (req, res) => {
   try {
-    let tripData = await getTripsData();
+    const {
+      from,
+      to,
+      date,
+      arrival,
+      departure,
+      startRating,
+      endRating,
+      operators,
+    } = req.query;
+
+    const filter = {};
+    if (from) filter.from = from;
+    if (to) filter.to = to;
+    if (date) filter.date = new Date(date);
+    if (arrival) filter.arrival = arrival;
+    if (departure) filter.departure = departure;
+    if (startRating && endRating)
+      filter.rating = {
+        $gte: parseFloat(startRating),
+        $lte: parseFloat(endRating),
+      };
+    if (operators) filter.operator = { $in: operators.split(",") };
+
+    let tripData = await getTripsData(filter);
 
     res.send(tripData);
   } catch (error) {
