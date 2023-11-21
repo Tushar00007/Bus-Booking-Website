@@ -1,4 +1,5 @@
-import { getTripsData, postTrips } from "../model/database.js";
+import getRandomUnixTimestampInSameDay from "../helper/randomTime.js";
+import { getBusOwnerData, getTripsData, postTrips } from "../model/database.js";
 
 const handelPostTrip = async (req, res) => {
   try {
@@ -65,7 +66,27 @@ const handelGetTrips = async (req, res) => {
     if (operators) filter.operator = { $in: operators.split(",") };
 
     let tripData = await getTripsData(filter);
-
+    if (tripData.length === 0 && filter.from && filter.to) {
+      let busOnwerData = await getBusOwnerData();
+      for (let i = 0; i < busOnwerData.length; i++) {
+        let randomTimer = getRandomUnixTimestampInSameDay();
+        await postTrips(
+          from,
+          to,
+          busOnwerData[i]._id,
+          randomTimer,
+          randomTimer + 3600,
+          busOnwerData[i].category,
+          [],
+          "MH01AA1000",
+          busOnwerData[i].animeties,
+          890,
+          busOnwerData[i].name
+        );
+      }
+      let tripDataAgain = await getTripsData(filter);
+      return res.send(tripDataAgain);
+    }
     res.send(tripData);
   } catch (error) {
     res.send(error.message);

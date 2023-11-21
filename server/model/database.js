@@ -25,7 +25,8 @@ async function postTrips(
 ) {
   try {
     let collection = db.collection("trips");
-    let date = new Date();
+    let unixDate = new Date().getTime();
+    let date = Math.floor(unixDate / 1000);
     let sendBookingData = collection.insertOne({
       date,
       from,
@@ -53,6 +54,14 @@ async function getTripsData(filters) {
     return error.message;
   }
 }
+async function getBusOwnerData() {
+  try {
+    let collection = db.collection("bus_owner");
+    return collection.find().toArray();
+  } catch (error) {
+    return error.message;
+  }
+}
 async function saveBooking({ ...arg }) {
   //  userId, tripId, seatNumber, bookingDate, paymentMethod,amountPaid,;
   let { userId, tripId, seatNumber, bookingDate, paymentMethod, amountPaid } =
@@ -74,4 +83,4 @@ async function saveBooking({ ...arg }) {
   }
 }
 
-export { connectToDb, postTrips, getTripsData, saveBooking };
+export { connectToDb, postTrips, getTripsData, saveBooking, getBusOwnerData };
