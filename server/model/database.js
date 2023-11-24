@@ -11,6 +11,7 @@ async function connectToDb() {
 let db = client.db("trips");
 // This function is for posting trips data in database
 async function postTrips(
+  date,
   from,
   to,
   busOwnerID,
@@ -25,8 +26,10 @@ async function postTrips(
 ) {
   try {
     let collection = db.collection("trips");
-    let unixDate = new Date().getTime();
-    let date = Math.floor(unixDate / 1000);
+    let currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    let unixDate = currentDate.getTime();
+    // let date = date ? date : Math.floor(unixDate / 1000);
     let sendBookingData = collection.insertOne({
       date,
       from,
@@ -49,6 +52,7 @@ async function postTrips(
 async function getTripsData(filters) {
   try {
     let collection = db.collection("trips");
+
     return collection.find(filters).limit(50).toArray();
   } catch (error) {
     return error.message;
@@ -82,5 +86,33 @@ async function saveBooking({ ...arg }) {
     return error.message;
   }
 }
+async function getDistrictName(userInput) {
+  userInput = userInput.toLowerCase();
+  try {
+    const collection = db.collection("state_district");
 
-export { connectToDb, postTrips, getTripsData, saveBooking, getBusOwnerData };
+    const districtsData = await collection.find().toArray();
+
+    const matchingDistricts = districtsData.flatMap((state) =>
+      state.districts
+        .filter((district) => district.toLowerCase().startsWith(userInput))
+        .map((matchingDistrict) => ({
+          district: matchingDistrict,
+          state: state.state,
+        }))
+    );
+
+    return matchingDistricts;
+  } catch (error) {
+    return error.message;
+  }
+}
+
+export {
+  connectToDb,
+  postTrips,
+  getTripsData,
+  saveBooking,
+  getBusOwnerData,
+  getDistrictName,
+};

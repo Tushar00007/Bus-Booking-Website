@@ -55,7 +55,8 @@ const handelGetTrips = async (req, res) => {
     const filter = {};
     if (from) filter.from = from;
     if (to) filter.to = to;
-    if (date) filter.date = new Date(date);
+    //+ is converting date from string to number
+    if (date) filter.date = date;
     if (arrival) filter.arrival = arrival;
     if (departure) filter.departure = departure;
     if (startRating && endRating)
@@ -66,11 +67,13 @@ const handelGetTrips = async (req, res) => {
     if (operators) filter.operator = { $in: operators.split(",") };
 
     let tripData = await getTripsData(filter);
+
     if (tripData.length === 0 && filter.from && filter.to) {
       let busOnwerData = await getBusOwnerData();
       for (let i = 0; i < busOnwerData.length; i++) {
         let randomTimer = getRandomUnixTimestampInSameDay();
         await postTrips(
+          date,
           from,
           to,
           busOnwerData[i]._id,
@@ -85,8 +88,10 @@ const handelGetTrips = async (req, res) => {
         );
       }
       let tripDataAgain = await getTripsData(filter);
+
       return res.send(tripDataAgain);
     }
+
     res.send(tripData);
   } catch (error) {
     res.send(error.message);

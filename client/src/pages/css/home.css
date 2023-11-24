@@ -1,0 +1,28 @@
+.busSearch {
+  background-image: url("../../images/vecteezy_people-on-bus-stop-father-with-little-daughter_16263385.jpg");
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+.busSearchForm {
+  display: flex;
+  background-color: white;
+  padding: 0.7rem;
+  border-radius: 1rem;
+}
+.MuiInputBase-input {
+  border: none !important;
+}
+.from {
+  margin-top: 0.4rem;
+}
+.to {
+  margin-top: 0.4rem;
+  margin-left: 0.1rem;
+}
+.datePicker {
+  margin-left: 0.1rem;
+}
