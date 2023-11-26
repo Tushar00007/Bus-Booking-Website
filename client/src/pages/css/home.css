@@ -1,6 +1,6 @@
 .busSearch {
   background-image: url("../../images/vecteezy_people-on-bus-stop-father-with-little-daughter_16263385.jpg");
-  width: 100vw;
+
   height: 80vh;
   display: flex;
 
@@ -25,4 +25,48 @@
 }
 .datePicker {
   margin-left: 0.1rem;
+}
+
+.achievement {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.review {
+  margin-top: 1.5rem;
+}
+.review h2 {
+  color: #3f51b5;
+}
+
+.customerReview {
+  margin-bottom: 1rem;
+  padding: 1.1rem;
+  background-color: #3f51b5;
+}
+
+.childCustomerReview {
+  display: flex;
+  justify-content: space-around;
+}
+.footer {
+  background-color: #3f51b5;
+  color: white;
+  display: flex;
+}
+.firstHalf {
+  padding-left: 3rem;
+  width: 50vw;
+  text-align: start;
+}
+.firstHalf p {
+  width: 40%;
+}
+
+.secondHalf {
+  width: 50vw;
 }

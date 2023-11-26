@@ -30,12 +30,12 @@ const handelPostTrip = async (req, res) => {
       busName
     );
     if (postTripsResponse.acknowledged) {
-      res.status(201).send("Trip Added");
+      res.status(201).json({ status: "ok" });
     } else {
-      res.send("Fail");
+      res.json({ status: "fail" });
     }
   } catch (error) {
-    res.send(error.message);
+    res.json(error.message);
   }
 };
 
@@ -89,12 +89,12 @@ const handelGetTrips = async (req, res) => {
       }
       let tripDataAgain = await getTripsData(filter);
 
-      return res.send(tripDataAgain);
+      return res.json(tripDataAgain);
     }
 
-    res.send(tripData);
+    res.json(tripData);
   } catch (error) {
-    res.send(error.message);
+    res.json(error.message);
   }
 };
 

@@ -1,13 +1,15 @@
 import React from "react";
-
+import { NavLink, Link } from "react-router-dom";
+import DirectionsBusFilledIcon from "@mui/icons-material/DirectionsBusFilled";
 function Navbar() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Navbar
-          </a>
+          <Link className="navbar-brand" to={"/"} style={{ color: "#3f51b5" }}>
+            <DirectionsBusFilledIcon style={{ fontSize: 25 }} />
+            ViaBook
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,9 +24,9 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <NavLink className="nav-link" to="/">
                   Home
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">

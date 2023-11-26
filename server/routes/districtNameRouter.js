@@ -8,9 +8,9 @@ router.route("/:district").get(async (req, res) => {
   try {
     let response = await getDistrictName(userInput);
 
-    res.send(response);
+    res.json(response);
   } catch (error) {
-    res.send(error.message);
+    res.json(error.message);
   }
 });
 export default router;
