@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useInsertionEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -16,10 +16,10 @@ import bus from "../images/bus.jpg";
 import people from "../images/people.jpg";
 import ticket from "../images/ticket.jpg";
 import CustomerReviewCard from "../components/card/reviewCard";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import DirectionsBusFilledIcon from "@mui/icons-material/DirectionsBusFilled";
+import Footer from "../components/footer/Footer";
+import { useNavigate } from "react-router-dom";
 const AutocompleteExample = () => {
+  let navigate = useNavigate();
   let dispatch = useDispatch();
   let from = useSelector((state) => state.from.posts);
   let to = useSelector((state) => state.to.posts);
@@ -39,7 +39,6 @@ const AutocompleteExample = () => {
   };
 
   let handelSearch = async (e) => {
-    // console.log(inputValue1, inputValue2, selectedDate, "home inputs");
     dispatch(fetchTrips(inputValue1, inputValue2, selectedDate));
   };
   useEffect(() => {
@@ -57,6 +56,11 @@ const AutocompleteExample = () => {
     }, 500);
     return () => clearTimeout(deboucing);
   }, [dispatch, inputValue2]);
+  useEffect(() => {
+    if (loading) {
+      navigate("/trips");
+    }
+  }, [loading, navigate]);
   return (
     <div className="Home">
       {/* Bus Search */}
@@ -170,7 +174,7 @@ const AutocompleteExample = () => {
         </div>
       </div>
       {/* Footer */}
-      <footer className="footer">
+      {/* <footer className="footer">
         <div className="firstHalf">
           <h3>
             <DirectionsBusFilledIcon style={{ fontSize: 30 }} />
@@ -190,7 +194,8 @@ const AutocompleteExample = () => {
           <InstagramIcon />
           <TwitterIcon />
         </div>
-      </footer>
+      </footer> */}
+      <Footer />
     </div>
   );
 };

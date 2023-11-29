@@ -72,6 +72,7 @@ const handelGetTrips = async (req, res) => {
       let busOnwerData = await getBusOwnerData();
       for (let i = 0; i < busOnwerData.length; i++) {
         let randomTimer = getRandomUnixTimestampInSameDay();
+        let SeatBooked = [];
         await postTrips(
           date,
           from,
@@ -80,11 +81,13 @@ const handelGetTrips = async (req, res) => {
           randomTimer,
           randomTimer + 3600,
           busOnwerData[i].category,
-          [],
+          SeatBooked,
+          busOnwerData[i].totalSeats,
           "MH01AA1000",
           busOnwerData[i].animeties,
           890,
-          busOnwerData[i].name
+          busOnwerData[i].name,
+          busOnwerData[i].rating
         );
       }
       let tripDataAgain = await getTripsData(filter);

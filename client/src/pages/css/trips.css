@@ -1,0 +1,144 @@
+.trips {
+  display: flex;
+  padding: 0.7rem;
+  margin: 0 3rem;
+}
+.filters {
+  flex: 0.7;
+  border: 1px solid gray;
+  margin: 0 20px;
+  border-radius: 1rem;
+  text-align: start;
+  padding: 10px;
+}
+.tripdata {
+  display: flex;
+  width: 100%;
+}
+
+.info {
+  padding: 12px;
+
+  flex: 0.8;
+}
+
+.MuiAccordionSummary-content {
+  margin: 0 !important;
+}
+.allTrips {
+  flex: 4;
+  text-align: start;
+  padding-left: 2px;
+}
+.rating {
+  text-align: center;
+  padding: 3px;
+  margin-left: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: rgb(13, 198, 13);
+  color: white;
+}
+.animeties {
+  display: flex;
+  margin-bottom: 0;
+  justify-content: flex-start;
+  padding-left: 0;
+  margin-top: 30px;
+}
+.animeties li {
+  list-style-type: none;
+  margin-left: 30px;
+  color: #3f51b5;
+}
+
+.priceAndSeats {
+  border-left: 1px solid black;
+  flex: 0.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.priceAndSeats h6 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.priceAndSeats p {
+  line-height: 0.3;
+}
+
+.selectSeat {
+  display: flex;
+}
+.busSeats {
+  width: 60%;
+}
+
+.upperDeck {
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+}
+.upperDeck p {
+  font-size: 12px;
+}
+.lowerDeck {
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.lowerDeck p {
+  font-size: 12px;
+}
+.L1 {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.3rem;
+}
+.L2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+.L3 {
+  display: flex;
+  justify-content: flex-end;
+}
+.summary {
+  width: 40%;
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  margin-left: 0.4rem;
+  padding: 1rem;
+}
+.from {
+  display: flex;
+  justify-content: space-between;
+}
+
+.from div p {
+  line-height: 0.1;
+}
+.to {
+  display: flex;
+  justify-content: space-between;
+}
+.to div p {
+  line-height: 0.1;
+}
+.seatNo {
+  display: flex;
+  justify-content: space-between;
+}
+hr {
+  color: #3f51b5;
+  font-weight: bolder;
+}
+
+.fareDetails div {
+  display: flex;
+  justify-content: space-between;
+}

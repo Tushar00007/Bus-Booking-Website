@@ -1,0 +1,67 @@
+.infoPage {
+  display: flex;
+  margin: 0 1rem;
+}
+.tripDetails {
+  width: 65%;
+}
+.info {
+  text-align: start;
+}
+.cityInfo {
+  display: flex;
+  justify-content: space-between;
+}
+.fromCity {
+  line-height: 0.2;
+}
+.fromCity p {
+  color: gray;
+}
+.toCity {
+  line-height: 0.2;
+}
+.toCity p {
+  color: gray;
+}
+.passengerDetails {
+  text-align: start;
+  margin: 0.5rem;
+}
+.passengerDetailsForm {
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.passengerDetailsFormInputs {
+  display: flex;
+}
+.fareDetailsInfo {
+  width: 30%;
+  padding: 1rem;
+}
+.fareSummary {
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+
+  text-align: start;
+  padding: 1rem;
+}
+.baseFare {
+  display: flex;
+  justify-content: space-between;
+}
+.tax {
+  display: flex;
+  justify-content: space-between;
+}
+.offer {
+  display: flex;
+  justify-content: space-between;
+}
+.totalPrice {
+  display: flex;
+  justify-content: space-between;
+}

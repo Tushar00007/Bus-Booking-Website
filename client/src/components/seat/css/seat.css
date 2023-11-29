@@ -1,0 +1,27 @@
+.outer {
+  border: 1px solid gray;
+  width: 70px;
+  height: 25px;
+  padding: 4px;
+  border-radius: 0px 4px 4px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: 1rem;
+}
+
+.inner {
+  border: 0.5px solid gray;
+  width: 5px;
+  height: 10px;
+  background-color: white;
+}
+
+.selectedSeat {
+  background-color: #0175e8;
+  border-color: #0175e8;
+}
+.reservedSeat {
+  background-color: gray;
+  border-color: gray;
+}
