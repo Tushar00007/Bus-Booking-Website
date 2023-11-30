@@ -11,9 +11,8 @@ import { Oval } from "react-loader-spinner";
 function Receipt() {
   let navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
-  const [call, setCall] = useState(true);
-  const [confirmBookingData, setConfirmBookingData] = useState({});
-  let [loading, setLoading] = useState(false);
+
+  const [confirmBookingData, setConfirmBookingData] = useState(null);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -60,218 +59,216 @@ function Receipt() {
   useEffect(() => {
     const storedData = localStorage.getItem("yourReduxData");
     const initialReduxState = storedData ? JSON.parse(storedData) : "";
-    console.log(initialReduxState);
+    console.log("Effect is running");
     if (!initialReduxState) return;
-    if (!call) return;
-    setLoading(true);
+
     async function BlokingSeat() {
-      const body = initialReduxState;
-      const headers = {
-        "Content-Type": "application/json",
-      };
-      const response = await fetch(
-        "http://localhost:8035/api/bk_tic/saveBooking",
-        {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(body),
-        }
-      );
-      localStorage.removeItem("yourReduxData");
-      setCall(false);
-      let data = await response.json();
-      setConfirmBookingData(data);
-      setLoading(false);
+      try {
+        const body = initialReduxState;
+        const headers = {
+          "Content-Type": "application/json",
+        };
+        const response = await fetch(
+          "http://localhost:8035/api/bk_tic/saveBooking",
+
+          {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(body),
+          }
+        );
+        localStorage.removeItem("yourReduxData");
+
+        let data = await response.json();
+        setConfirmBookingData(data);
+      } catch (error) {
+        console.log(error, "Error while fething data");
+      }
     }
-    setLoading(false);
+
     BlokingSeat();
   }, []);
+  if (confirmBookingData === null) {
+    return (
+      <div className="Loader">
+        <Oval
+          height={150}
+          width={150}
+          color="#0dc60d"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="#4fa94d"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+        />
+        <h1>Blocking your seat !!</h1>
+      </div>
+    );
+  }
   return (
     <>
       <div className="receipt">
         <div className="receiptContainer">
-          {!loading ? (
-            <>
-              <CheckCircleOutlineIcon
-                style={{ color: "#0dc60d", fontSize: 80 }}
-              />
-              <h1>Booking has been confirmed</h1>
-              <p>
-                Ticket ID:{" "}
-                {`${
-                  confirmBookingData &&
-                  confirmBookingData?.data.otherData.businfo.SeatNo
-                }${
-                  confirmBookingData &&
-                  confirmBookingData?.data.otherData.businfo.busDetails.date
-                }${
-                  confirmBookingData &&
-                  confirmBookingData?.data.otherData.businfo.busDetails.busName.split(
-                    " "
-                  )[0]
-                }`}
-              </p>
-              <p>
-                Seat No:{" "}
-                {confirmBookingData &&
-                  confirmBookingData?.data.otherData.businfo.SeatNo}
-              </p>
-              <p>
-                Passenger{" "}
-                {confirmBookingData &&
-                  confirmBookingData?.data.otherData.passengerData.name}{" "}
-              </p>
-              <p>
-                Contact Details:{" "}
-                {confirmBookingData &&
-                  confirmBookingData?.data.otherData.passengerData.mobile}
-              </p>
-              <div className="receiptBusBookingDetails">
-                <Accordion
-                  expanded={expanded === `panel${1}`}
-                  onChange={handleChange(`panel${1}`)}
-                  style={{ border: "1px solid gray", margin: 10 }}
-                >
-                  <AccordionSummary
-                    aria-controls={`panel${1}bh-content`}
-                    id={`panel${1}bh-header`}
-                  >
-                    {/* Outter */}
-                    {/* Heading */}
-                    <div className="tripdata">
-                      <div className="info">
-                        <h5>
-                          {confirmBookingData?.data.otherData.businfo.busDetails
+          <CheckCircleOutlineIcon style={{ color: "#0dc60d", fontSize: 80 }} />
+          <h1>Booking has been confirmed</h1>
+          <p>
+            Ticket ID:{" "}
+            {`${
+              confirmBookingData &&
+              confirmBookingData?.data.otherData.businfo.SeatNo
+            }${
+              confirmBookingData &&
+              confirmBookingData?.data.otherData.businfo.busDetails.date
+            }${
+              confirmBookingData &&
+              confirmBookingData?.data.otherData.businfo.busDetails.busName.split(
+                " "
+              )[0]
+            }`}
+          </p>
+          <p>
+            Seat No:{" "}
+            {confirmBookingData &&
+              confirmBookingData?.data.otherData.businfo.SeatNo}
+          </p>
+          <p>
+            Passenger{" "}
+            {confirmBookingData &&
+              confirmBookingData?.data.otherData.passengerData.name}{" "}
+          </p>
+          <p>
+            Contact Details:{" "}
+            {confirmBookingData &&
+              confirmBookingData?.data.otherData.passengerData.mobile}
+          </p>
+          <div className="receiptBusBookingDetails">
+            <Accordion
+              expanded={expanded === `panel${1}`}
+              onChange={handleChange(`panel${1}`)}
+              style={{ border: "1px solid gray", margin: 10 }}
+            >
+              <AccordionSummary
+                aria-controls={`panel${1}bh-content`}
+                id={`panel${1}bh-header`}
+              >
+                {/* Outter */}
+                {/* Heading */}
+                <div className="tripdata">
+                  <div className="info">
+                    <h5>
+                      {confirmBookingData?.data.otherData.businfo.busDetails
+                        .busName
+                        ? confirmBookingData?.data.otherData.businfo.busDetails
                             .busName
-                            ? confirmBookingData?.data.otherData.businfo
-                                .busDetails.busName
-                            : "Loading.."}
-                          <span className="rating">
-                            <StarBorderIcon
-                              style={{ marginBottom: "2px", fontSize: 20 }}
-                            />
-                            {confirmBookingData?.data.otherData.businfo
+                        : "Loading.."}
+                      <span className="rating">
+                        <StarBorderIcon
+                          style={{ marginBottom: "2px", fontSize: 20 }}
+                        />
+                        {confirmBookingData?.data.otherData.businfo.busDetails
+                          .rating
+                          ? confirmBookingData?.data.otherData.businfo
                               .busDetails.rating
-                              ? confirmBookingData?.data.otherData.businfo
-                                  .busDetails.rating
-                              : 4.3}
-                          </span>
-                          <span
-                            style={{
-                              fontWeight: "normal",
-                              fontSize: 13,
-                              marginLeft: 4,
-                            }}
-                          >
-                            Ratings
-                          </span>
-                        </h5>
-                        {/* bus type */}
+                          : 4.3}
+                      </span>
+                      <span
+                        style={{
+                          fontWeight: "normal",
+                          fontSize: 13,
+                          marginLeft: 4,
+                        }}
+                      >
+                        Ratings
+                      </span>
+                    </h5>
+                    {/* bus type */}
+                    <p>
+                      {confirmBookingData?.data.otherData.businfo.busDetails
+                        .category
+                        ? confirmBookingData?.data.otherData.businfo.busDetails
+                            .category
+                        : "A/C Sleeper (2+1)"}{" "}
+                      |{" "}
+                      {confirmBookingData?.data.otherData.businfo.busDetails
+                        .totalSeats
+                        ? confirmBookingData?.data.otherData.businfo.busDetails
+                            .totalSeats - 1
+                        : "38"}
+                    </p>
+                    {/* Timing */}
+                    <h5>
+                      {convertUnixTime(
+                        confirmBookingData?.data.otherData.businfo.busDetails
+                          .startTime
+                          ? confirmBookingData?.data.otherData.businfo
+                              .busDetails.startTime
+                          : 1701160751
+                      )}{" "}
+                      ----
+                      {calTravelTime(
+                        confirmBookingData?.data.otherData.businfo.busDetails
+                          .startTime
+                          ? confirmBookingData?.data.otherData.businfo
+                              .busDetails.startTime
+                          : 1701160751,
+                        confirmBookingData?.data.otherData.businfo.busDetails
+                          .EndTime
+                          ? confirmBookingData?.data.otherData.businfo
+                              .busDetails.EndTime
+                          : 1701165751
+                      )}
+                      ----
+                      {convertUnixTime(
+                        confirmBookingData?.data.otherData.businfo.busDetails
+                          .EndTime
+                          ? confirmBookingData?.data.otherData.businfo
+                              .busDetails.EndTime
+                          : 1701165751
+                      )}
+                    </h5>
+                    <div className="cityInfo">
+                      <div className="fromCity">
+                        <h6>
+                          {confirmBookingData?.data.otherData.businfo.busDetails
+                            .from
+                            ? confirmBookingData?.data.otherData.businfo.busDetails.from.split(
+                                ","
+                              )[0]
+                            : "City"}
+                        </h6>
                         <p>
                           {confirmBookingData?.data.otherData.businfo.busDetails
-                            .category
+                            .from
                             ? confirmBookingData?.data.otherData.businfo
-                                .busDetails.category
-                            : "A/C Sleeper (2+1)"}{" "}
-                          |{" "}
-                          {confirmBookingData?.data.otherData.businfo.busDetails
-                            .totalSeats
-                            ? confirmBookingData?.data.otherData.businfo
-                                .busDetails.totalSeats - 1
-                            : "38"}
+                                .busDetails.from
+                            : "City,State"}
                         </p>
-                        {/* Timing */}
-                        <h5>
-                          {convertUnixTime(
-                            confirmBookingData?.data.otherData.businfo
-                              .busDetails.startTime
-                              ? confirmBookingData?.data.otherData.businfo
-                                  .busDetails.startTime
-                              : 1701160751
-                          )}{" "}
-                          ----
-                          {calTravelTime(
-                            confirmBookingData?.data.otherData.businfo
-                              .busDetails.startTime
-                              ? confirmBookingData?.data.otherData.businfo
-                                  .busDetails.startTime
-                              : 1701160751,
-                            confirmBookingData?.data.otherData.businfo
-                              .busDetails.EndTime
-                              ? confirmBookingData?.data.otherData.businfo
-                                  .busDetails.EndTime
-                              : 1701165751
-                          )}
-                          ----
-                          {convertUnixTime(
-                            confirmBookingData?.data.otherData.businfo
-                              .busDetails.EndTime
-                              ? confirmBookingData?.data.otherData.businfo
-                                  .busDetails.EndTime
-                              : 1701165751
-                          )}
-                        </h5>
-                        <div className="cityInfo">
-                          <div className="fromCity">
-                            <h6>
-                              {confirmBookingData?.data.otherData.businfo
-                                .busDetails.from
-                                ? confirmBookingData?.data.otherData.businfo.busDetails.from.split(
-                                    ","
-                                  )[0]
-                                : "City"}
-                            </h6>
-                            <p>
-                              {confirmBookingData?.data.otherData.businfo
-                                .busDetails.from
-                                ? confirmBookingData?.data.otherData.businfo
-                                    .busDetails.from
-                                : "City,State"}
-                            </p>
-                          </div>
-                          <div className="toCity">
-                            <h6>
-                              {confirmBookingData?.data.otherData.businfo
+                      </div>
+                      <div className="toCity">
+                        <h6>
+                          {confirmBookingData?.data.otherData.businfo.busDetails
+                            .to
+                            ? confirmBookingData?.data.otherData.businfo.busDetails.to.split(
+                                ","
+                              )[0]
+                            : "City"}
+                        </h6>
+                        <p>
+                          {confirmBookingData?.data.otherData.businfo.busDetails
+                            .to
+                            ? confirmBookingData?.data.otherData.businfo
                                 .busDetails.to
-                                ? confirmBookingData?.data.otherData.businfo.busDetails.to.split(
-                                    ","
-                                  )[0]
-                                : "City"}
-                            </h6>
-                            <p>
-                              {confirmBookingData?.data.otherData.businfo
-                                .busDetails.to
-                                ? confirmBookingData?.data.otherData.businfo
-                                    .busDetails.to
-                                : "City,State"}
-                            </p>
-                          </div>
-                        </div>
+                            : "City,State"}
+                        </p>
                       </div>
                     </div>
-                  </AccordionSummary>
-                </Accordion>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="Loader">
-                <Oval
-                  height={150}
-                  width={150}
-                  color="#0dc60d"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
-                  ariaLabel="oval-loading"
-                  secondaryColor="#4fa94d"
-                  strokeWidth={2}
-                  strokeWidthSecondary={2}
-                />
-                <h1>Blocking your seat !!</h1>
-              </div>
-            </>
-          )}
+                  </div>
+                </div>
+              </AccordionSummary>
+            </Accordion>
+          </div>
         </div>
       </div>
       <Footer />

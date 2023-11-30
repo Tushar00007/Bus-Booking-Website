@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Seat from "../components/seat/Seat";
 import "./css/trips.css";
 import { selectedBusAndSeat } from "../redux/acction/busAndSeatSelectionAction";
+import { filledInputClasses } from "@mui/material";
 
 export default function ControlledAccordions() {
   let dispatch = useDispatch();
@@ -20,11 +21,77 @@ export default function ControlledAccordions() {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedDeparture, setSelectedDeparture] = useState(null);
+  const [selectedArrival, setSelectedArrival] = useState(null);
+  const [selectedRating, setSelectedRating] = useState(null);
+  const [selectedBus, setSelectedBus] = useState(null);
+
   const [selectedSeat, setSelectedSeat] = useState("");
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handelDeparture = (event) => {
+    setSelectedDeparture(event.target.value);
   };
+  const handelArrival = (event) => {
+    setSelectedArrival(event.target.value);
+  };
+  const handelRating = (event) => {
+    setSelectedRating(event.target.value);
+  };
+  const handelBus = (event) => {
+    setSelectedBus(event.target.value);
+  };
+  // useEffect(() => {
+  //   let timeFunction = (time) => {
+  //     let newTime = new Date(time * 1000);
+
+  //     return newTime.getHours();
+  //   };
+
+  //   let filterDepature = trips.filter((trip) => {
+  //     if (selectedDeparture === "DMorning") {
+  //       return timeFunction(trip.startTime) < 12;
+  //     } else if (selectedDeparture === "DAfternon") {
+  //       return (
+  //         timeFunction(trip.startTime) >= 12 &&
+  //         timeFunction(trip.startTime) <= 16
+  //       );
+  //     } else if (selectedDeparture === "DEvening") {
+  //       return timeFunction(trip.startTime) > 16;
+  //     }
+  //   });
+
+  //   let filterArrival = trips.filter((trip) => {
+  //     if (selectedArrival === "AMorning") {
+  //       return timeFunction(trip.EndTime) < 12;
+  //     } else if (selectedArrival === "AAfternon") {
+  //       return (
+  //         timeFunction(trip.EndTime) >= 12 && timeFunction(trip.EndTime) < 16
+  //       );
+  //     } else if (selectedArrival === "AEvening") {
+  //       return timeFunction(trip.EndTime) > 16;
+  //     }
+  //   });
+
+  //   let filterRating = trips.filter((trip) => {
+  //     if (selectedRating === "4StarOrMore") {
+  //       return trip.rating >= 4;
+  //     } else if (selectedRating === "3StartOrMore") {
+  //       return trip.rating >= 3;
+  //     } else if (selectedRating === "0-2Star") {
+  //       return trip.rating <= 2;
+  //     }
+  //   });
+  //   let filterBusName = trips.filter((trip) => {
+  //     return trip.busName === selectedBus;
+  //   });
+
+  //   let allBusDataFilterd = [
+  //     ...filterDepature,
+  //     ...filterArrival,
+  //     ...filterRating,
+  //     ...filterBusName,
+  //   ];
+
+  // }, [trips, selectedBus, selectedRating, selectedDeparture, selectedArrival]);
   let convertUnixTime = (time) => {
     let monthShortForm = {
       1: "JAN",
@@ -67,51 +134,126 @@ export default function ControlledAccordions() {
     dispatch(selectedBusAndSeat(trips[busDataIndex], selecetedSeatNO));
     navigate("/info");
   };
-
-  const radioStyle = {
-    width: "20px",
-    height: "20px",
-    marginRight: "5px",
-    appearance: "none", // Reset default styles
-    borderRadius: "0", // Ensure square corners
-  };
+  console.log(trips);
   return (
     <>
       <div className="trips">
         <div className="filters">
-          <div>
-            <label>
-              <input
-                type="radio"
-                value="option1"
-                checked={selectedOption === "option1"}
-                onChange={handleOptionChange}
-                style={radioStyle}
-              />
-              Option 1
-            </label>
+          <h3>Filters</h3>
+          <div className="filters_child">
+            <h6>Departure Time</h6>
+            <input
+              type="radio"
+              name="departure"
+              id="Morning"
+              value="DMorning"
+              checked={selectedDeparture === "DMorning"}
+              onChange={handelDeparture}
+            />
+            <label htmlFor="Morning">Morning</label>
             <br />
-            <label>
-              <input
-                type="radio"
-                value="option2"
-                checked={selectedOption === "option2"}
-                onChange={handleOptionChange}
-                style={radioStyle}
-              />
-              Option 2
-            </label>
+            <input
+              type="radio"
+              name="departure"
+              id="Afternon"
+              value="DAfternon"
+              checked={selectedDeparture === "DAfternon"}
+              onChange={handelDeparture}
+            />
+            <label htmlFor="Afternon">Afternon</label>
             <br />
-            <label>
-              <input
-                type="radio"
-                value="option3"
-                checked={selectedOption === "option3"}
-                onChange={handleOptionChange}
-                style={radioStyle}
-              />
-              Option 3
-            </label>
+            <input
+              type="radio"
+              name="departure"
+              value="DEvening"
+              checked={selectedDeparture === "DEvening"}
+              id="Evening"
+              onChange={handelDeparture}
+            />
+            <label htmlFor="Evening">Evening</label>
+            <hr />
+            <h6>Arrival Time</h6>
+            <input
+              type="radio"
+              name="Arrival"
+              id="morning"
+              value="AMorning"
+              checked={selectedArrival === "AMorning"}
+              onChange={handelArrival}
+            />
+            <label htmlFor="morning">Morning</label>
+            <br />
+            <input
+              type="radio"
+              name="Arrival"
+              id="afternon"
+              value="AAfternon"
+              checked={selectedArrival === "AAfternon"}
+              onChange={handelArrival}
+            />
+            <label htmlFor="afternon">Afternon</label>
+            <br />
+            <input
+              type="radio"
+              name="Arrival"
+              id="evening"
+              value="AEvening"
+              checked={selectedArrival === "AEvening"}
+              onChange={handelArrival}
+            />
+            <label htmlFor="evening">Evening</label>
+            <hr />
+            <h6>Bus Rating</h6>
+            <input
+              type="radio"
+              name="BusRating"
+              id="4StarOrmore"
+              value="4StarOrMore"
+              checked={selectedRating === "4StarOrMore"}
+              onChange={handelRating}
+            />
+            <label htmlFor="4StarOrmore">4 Star or more</label>
+            <br />
+            <input
+              type="radio"
+              name="BusRating"
+              id="3StartOrMore"
+              value="3StartOrMore"
+              checked={selectedRating === "3StartOrMore"}
+              onChange={handelRating}
+            />
+            <label htmlFor="3StartOrMore">3 Start or more</label>
+            <br />
+            <input
+              type="radio"
+              name="BusRating"
+              id="0-2Star"
+              value="0-2Star"
+              checked={selectedRating === "0-2Star"}
+              onChange={handelRating}
+            />
+            <label htmlFor="0-2Star">0-2 Star</label>
+            <hr />
+            <h6>Bus Operator</h6>
+            {trips.map((trip) => {
+              let convertedBusNameArray = trip.busName.split(" ");
+              return (
+                <>
+                  <input
+                    type="radio"
+                    name="BusOperator"
+                    id={trip._id}
+                    value={trip.busName}
+                    checked={selectedBus === trip.busName}
+                    onChange={handelBus}
+                  />
+                  <label htmlFor={trip._id}>{`${convertedBusNameArray[0]} ${
+                    convertedBusNameArray[1] ? convertedBusNameArray[1] : ""
+                  }`}</label>
+                  <br />
+                </>
+              );
+            })}
           </div>
         </div>
         {/* All Trips */}
@@ -204,177 +346,367 @@ export default function ControlledAccordions() {
                           <div className="upperDeck">
                             <p>Upper Deck</p>
                             <div className="L1">
-                              <div onClick={(e) => setSelectedSeat("UL11")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL11")) {
+                                    setSelectedSeat("UL11");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL11"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL11")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL12")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL12")) {
+                                    setSelectedSeat("UL12");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL12"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL12")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL13")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL13")) {
+                                    setSelectedSeat("UL13");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL13"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL13")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL14")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL14")) {
+                                    setSelectedSeat("UL14");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL14"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL14")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL15")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL15")) {
+                                    setSelectedSeat("UL15");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL15"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL15")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL16")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL16")) {
+                                    setSelectedSeat("UL16");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL16"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL16")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL17")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL17")) {
+                                    setSelectedSeat("UL17");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL17"
                                       ? "selectedSeat"
+                                      : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL17")
+                                      ? "reservedSeat"
                                       : ""
                                   }`}
                                 />
                               </div>
                             </div>
                             <div className="L2">
-                              <div onClick={(e) => setSelectedSeat("UL21")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL21")) {
+                                    setSelectedSeat("UL21");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL21"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL21")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL22")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL22")) {
+                                    setSelectedSeat("UL22");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL22"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL22")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL23")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL23")) {
+                                    setSelectedSeat("UL23");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL23"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL23")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL24")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL24")) {
+                                    setSelectedSeat("UL24");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL24"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL24")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL25")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL25")) {
+                                    setSelectedSeat("UL25");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL25"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL25")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL26")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL26")) {
+                                    setSelectedSeat("UL26");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL26"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL26")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL27")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL27")) {
+                                    setSelectedSeat("UL27");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL27"
                                       ? "selectedSeat"
+                                      : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL27")
+                                      ? "reservedSeat"
                                       : ""
                                   }`}
                                 />
                               </div>
                             </div>
                             <div className="L3">
-                              <div onClick={(e) => setSelectedSeat("UL31")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL31")) {
+                                    setSelectedSeat("UL31");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL31"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL31")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL32")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL32")) {
+                                    setSelectedSeat("UL32");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL32"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL32")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL33")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL33")) {
+                                    setSelectedSeat("UL33");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL33"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL33")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL34")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL34")) {
+                                    setSelectedSeat("UL34");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL34"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL34")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("UL35")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("UL35")) {
+                                    setSelectedSeat("UL35");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "UL35"
                                       ? "selectedSeat"
+                                      : ""
+                                  } ${
+                                    trip.SeatBooked.includes("UL35")
+                                      ? "reservedSeat"
                                       : ""
                                   }`}
                                 />
@@ -385,177 +717,367 @@ export default function ControlledAccordions() {
                           <div className="lowerDeck">
                             <p>Lower Deck</p>
                             <div className="L1">
-                              <div onClick={(e) => setSelectedSeat("LL11")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL11")) {
+                                    setSelectedSeat("LL11");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL11"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL11")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL12")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL12")) {
+                                    setSelectedSeat("LL12");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL12"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL12")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL13")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL13")) {
+                                    setSelectedSeat("LL13");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL13"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL13")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL14")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL14")) {
+                                    setSelectedSeat("LL14");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL14"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL14")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL15")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL15")) {
+                                    setSelectedSeat("LL15");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL15"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL15")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL16")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL16")) {
+                                    setSelectedSeat("LL16");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL16"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL16")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL17")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL17")) {
+                                    setSelectedSeat("LL17");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL17"
                                       ? "selectedSeat"
+                                      : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL17")
+                                      ? "reservedSeat"
                                       : ""
                                   }`}
                                 />
                               </div>
                             </div>
                             <div className="L2">
-                              <div onClick={(e) => setSelectedSeat("LL21")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL21")) {
+                                    setSelectedSeat("LL21");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL21"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL21")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL22")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL22")) {
+                                    setSelectedSeat("LL22");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL22"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL22")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL23")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL23")) {
+                                    setSelectedSeat("LL23");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL23"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL23")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL24")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL24")) {
+                                    setSelectedSeat("LL24");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL24"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL24")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL25")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL25")) {
+                                    setSelectedSeat("LL25");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL25"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL25")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL26")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL26")) {
+                                    setSelectedSeat("LL26");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL26"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL26")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL27")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL27")) {
+                                    setSelectedSeat("LL27");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL27"
                                       ? "selectedSeat"
+                                      : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL27")
+                                      ? "reservedSeat"
                                       : ""
                                   }`}
                                 />
                               </div>
                             </div>
                             <div className="L3">
-                              <div onClick={(e) => setSelectedSeat("LL31")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL31")) {
+                                    setSelectedSeat("LL31");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL31"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL31")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL32")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL32")) {
+                                    setSelectedSeat("LL32");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL32"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL32")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL33")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL33")) {
+                                    setSelectedSeat("LL33");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL33"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL33")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL34")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL34")) {
+                                    setSelectedSeat("LL34");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL34"
                                       ? "selectedSeat"
                                       : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL34")
+                                      ? "reservedSeat"
+                                      : ""
                                   }`}
                                 />
                               </div>
-                              <div onClick={(e) => setSelectedSeat("LL35")}>
+                              <div
+                                onClick={(e) => {
+                                  if (!trip.SeatBooked.includes("LL35")) {
+                                    setSelectedSeat("LL35");
+                                  }
+                                }}
+                              >
                                 <Seat
                                   seatStlye={`${
                                     selectedSeat === "LL35"
                                       ? "selectedSeat"
+                                      : ""
+                                  } ${
+                                    trip.SeatBooked.includes("LL35")
+                                      ? "reservedSeat"
                                       : ""
                                   }`}
                                 />

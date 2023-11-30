@@ -9,8 +9,8 @@ const router = express.Router();
 
 router.route("/").post(handelPostTrip).get(handelGetTrips);
 router.route("/saveBooking").post(async (req, res) => {
+  console.log("request comming");
   let response = await saveBooking(req.body);
-  let ididi = response.insertedID;
 
   if (response.acknowledged) {
     res.status(201).json({

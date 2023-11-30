@@ -5,11 +5,31 @@
 }
 .filters {
   flex: 0.7;
-  border: 1px solid gray;
+
   margin: 0 20px;
-  border-radius: 1rem;
   text-align: start;
   padding: 10px;
+}
+.filters_child {
+  border: 1px solid gray;
+  border-radius: 1rem;
+  padding: 10px;
+}
+
+.filters_child input[type="radio"] {
+  height: 20px;
+  width: 20px;
+  margin-top: 0;
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+
+.filters_child label {
+  display: inline-block; /* Make the label display inline with the radio button */
+  vertical-align: middle; /* Align the label text to the middle of the line */
+}
+.filters_child label {
 }
 .tripdata {
   display: flex;
