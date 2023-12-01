@@ -1,5 +1,10 @@
 import getRandomUnixTimestampInSameDay from "../helper/randomTime.js";
-import { getBusOwnerData, getTripsData, postTrips } from "../model/database.js";
+import {
+  getBusOwnerData,
+  getTripsData,
+  postTrips,
+  saveBooking,
+} from "../model/database.js";
 
 const handelPostTrip = async (req, res) => {
   try {
@@ -100,5 +105,16 @@ const handelGetTrips = async (req, res) => {
     res.json(error.message);
   }
 };
+let handelSaveBooking = async (req, res) => {
+  let response = await saveBooking(req.body);
 
-export { handelPostTrip, handelGetTrips };
+  if (response.acknowledged) {
+    res.status(201).json({
+      status: "Booked",
+      data: { ticketId: response.insertedID, otherData: req.body },
+    });
+  } else {
+    res.json({ status: "Booking fail" });
+  }
+};
+export { handelPostTrip, handelGetTrips, handelSaveBooking };

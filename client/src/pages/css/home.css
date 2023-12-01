@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .busSearchForm {
   display: flex;
   background-color: white;
@@ -31,7 +32,7 @@
   display: flex;
   justify-content: space-around;
   margin-top: 1rem;
-
+  flex-wrap: wrap;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
@@ -52,6 +53,7 @@
 .childCustomerReview {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 .footer {
   background-color: #3f51b5;
@@ -69,4 +71,35 @@
 
 .secondHalf {
   width: 50vw;
+}
+
+@media screen and (min-width: 768px) {
+  .busSearch {
+    height: 60vh;
+  }
+}
+
+/* For smaller screens (phones) */
+@media screen and (max-width: 767px) {
+  .busSearch {
+    height: 50vh;
+    flex-direction: column;
+  }
+  .busSearchForm {
+    margin-top: 1rem;
+    flex-direction: column;
+  }
+  .homeLoadingButton {
+    margin-top: 1rem !important;
+    width: 30vw;
+  }
+  .firstHalf,
+  .secondHalf {
+    width: 100%;
+    padding-left: 1rem;
+  }
+
+  .firstHalf p {
+    width: 100%;
+  }
 }

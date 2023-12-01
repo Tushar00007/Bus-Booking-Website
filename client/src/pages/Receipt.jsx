@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./css/receipt.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { useNavigate } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import "./css/info.css";
 import Footer from "../components/footer/Footer";
 import { Oval } from "react-loader-spinner";
+import "./css/info.css";
+import "./css/receipt.css";
 function Receipt() {
-  let navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
 
   const [confirmBookingData, setConfirmBookingData] = useState(null);
@@ -55,11 +53,11 @@ function Receipt() {
 
     return `${formattedHours}hrs${formattedMinutes}mins`;
   };
-  console.log(confirmBookingData);
+
   useEffect(() => {
     const storedData = localStorage.getItem("yourReduxData");
     const initialReduxState = storedData ? JSON.parse(storedData) : "";
-    console.log("Effect is running");
+
     if (!initialReduxState) return;
 
     async function BlokingSeat() {
@@ -107,6 +105,7 @@ function Receipt() {
       </div>
     );
   }
+  console.log(confirmBookingData);
   return (
     <>
       <div className="receipt">
@@ -120,12 +119,7 @@ function Receipt() {
               confirmBookingData?.data.otherData.businfo.SeatNo
             }${
               confirmBookingData &&
-              confirmBookingData?.data.otherData.businfo.busDetails.date
-            }${
-              confirmBookingData &&
-              confirmBookingData?.data.otherData.businfo.busDetails.busName.split(
-                " "
-              )[0]
+              confirmBookingData?.data.otherData.businfo.busDetails.newUniId
             }`}
           </p>
           <p>

@@ -1,36 +1,9 @@
 .trips {
   display: flex;
   padding: 0.7rem;
-  margin: 0 3rem;
-}
-.filters {
-  flex: 0.7;
-
-  margin: 0 20px;
-  text-align: start;
-  padding: 10px;
-}
-.filters_child {
-  border: 1px solid gray;
-  border-radius: 1rem;
-  padding: 10px;
+  margin: 0 7rem;
 }
 
-.filters_child input[type="radio"] {
-  height: 20px;
-  width: 20px;
-  margin-top: 0;
-  vertical-align: middle;
-  margin-right: 5px;
-  margin-left: 10px;
-}
-
-.filters_child label {
-  display: inline-block; /* Make the label display inline with the radio button */
-  vertical-align: middle; /* Align the label text to the middle of the line */
-}
-.filters_child label {
-}
 .tripdata {
   display: flex;
   width: 100%;
@@ -38,7 +11,6 @@
 
 .info {
   padding: 12px;
-
   flex: 0.8;
 }
 
@@ -73,7 +45,7 @@
 }
 
 .priceAndSeats {
-  border-left: 1px solid black;
+  border-left: 1px solid gray;
   flex: 0.2;
   display: flex;
   flex-direction: column;
@@ -161,4 +133,72 @@ hr {
 .fareDetails div {
   display: flex;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 1024px) {
+  .trips {
+    flex-direction: column;
+    margin: 0 2rem;
+  }
+
+  .info,
+  .priceAndSeats,
+  .upperDeck,
+  .lowerDeck,
+  .L1,
+  .L2,
+  .L3,
+  .summary {
+    width: 100%;
+  }
+
+  .selectSeat {
+    flex-direction: column;
+  }
+
+  .busSeats {
+    width: 100%;
+  }
+  .summary {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .trips {
+    flex-direction: column;
+    margin: 0 1rem;
+    margin: 0 2;
+  }
+
+  .info,
+  .priceAndSeats,
+  .upperDeck,
+  .lowerDeck,
+  .L1,
+  .L2,
+  .L3,
+  .summary {
+    width: 100%;
+  }
+
+  .selectSeat {
+    flex-direction: column;
+  }
+
+  .busSeats {
+    width: 100%;
+  }
+  .info {
+    flex: 0.5;
+    font-size: 12px;
+  }
+  .priceAndSeats {
+    flex: 0.5;
+    font-size: 10px;
+    padding: 1rem;
+  }
+  .summary {
+    margin-top: 10px;
+  }
 }

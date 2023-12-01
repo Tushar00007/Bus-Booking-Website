@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
@@ -9,13 +9,14 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
-import "./css/info.css";
 import Footer from "../components/footer/Footer";
 import { loadStripe } from "@stripe/stripe-js";
+import { Oval } from "react-loader-spinner";
+import { Toaster, toast } from "react-hot-toast";
+import "./css/info.css";
 function Info() {
-  let dispatch = useDispatch();
   let busAndSeat = useSelector((state) => state.busAndSeat.info);
-  console.log(busAndSeat);
+
   let convertUnixTime = (time) => {
     let monthShortForm = {
       1: "JAN",
@@ -80,11 +81,11 @@ function Info() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let { name, gender, email, age, mobile } = formData;
-    if (!name) return alert("Enter Name");
-    if (!gender) return alert("Enter Gender");
-    if (!email) return alert("Enter Email");
-    if (!age) return alert("Enter Age");
-    if (!mobile) return alert("Enter Moble");
+    if (!name) return toast.error("Enter Name");
+    if (!gender) return toast.error("Enter Gender");
+    if (!email) return toast.error("Enter Email");
+    if (!age) return toast.error("Enter Age");
+    if (!mobile) return toast.error("Enter Moble");
     localStorage.setItem(
       "yourReduxData",
       JSON.stringify({
@@ -104,7 +105,7 @@ function Info() {
       "Content-Type": "application/json",
     };
     const response = await fetch(
-      "http://localhost:8035/create-checkout-session",
+      "http://localhost:8035/api/payment/create-checkout-session",
       {
         method: "POST",
         headers: headers,
@@ -122,6 +123,27 @@ function Info() {
     }
   };
 
+  if (!busAndSeat.SeatNo) {
+    return (
+      <>
+        <div className="Loader">
+          <Oval
+            height={150}
+            width={150}
+            color="#0dc60d"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            ariaLabel="oval-loading"
+            secondaryColor="#4fa94d"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
+          <h1>Loading !!</h1>
+        </div>
+      </>
+    );
+  }
   return (
     <>
       <div className="infoPage">
@@ -190,8 +212,8 @@ function Info() {
               <h6>Seat No {busAndSeat.SeatNo}</h6>
 
               <div className="passengerDetailsFormInputs">
-                <Grid container>
-                  <Grid item xs={6}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={6}>
                     <TextField
                       fullWidth
                       label="Name"
@@ -202,63 +224,63 @@ function Info() {
                     />
                   </Grid>
 
-                  <Grid item xs={3}>
+                  <Grid item xs={12} md={3}>
                     <Box
                       component="form"
                       sx={{
-                        "& .MuiTextField-root": { width: "25ch" },
+                        "& .MuiTextField-root": { width: "100%" },
                       }}
                       noValidate
                       autoComplete="off"
-                      style={{ marginLeft: 10 }}
+                      marginTop={{ xs: 2, md: 0 }}
                     >
-                      <div>
-                        <TextField
-                          id="outlined-select-currency"
-                          select
-                          label="Gender"
-                          name="gender"
-                          onChange={handleChangeInput}
-                          value={formData.gender}
-                        >
-                          {gender.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                              {option.label}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </div>
+                      <TextField
+                        select
+                        label="Gender"
+                        name="gender"
+                        onChange={handleChangeInput}
+                        value={formData.gender}
+                      >
+                        {gender.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
                     </Box>
                   </Grid>
-                  <Grid item xs={3}>
+
+                  <Grid item xs={12} md={3}>
                     <TextField
-                      type="Number"
-                      id="outlined-basic"
+                      type="number"
                       label="Age"
                       variant="outlined"
                       name="age"
                       value={formData.age}
                       onChange={handleChangeInput}
+                      fullWidth
                     />
                   </Grid>
-                  <Grid item xs={3} style={{ marginTop: 10 }}>
+
+                  <Grid item xs={12} md={6} style={{ marginTop: 10 }}>
                     <TextField
-                      type="Email"
-                      id="outlined-basic"
+                      type="email"
                       label="Email Id"
                       variant="outlined"
                       name="email"
                       onChange={handleChangeInput}
+                      fullWidth
                     />
                   </Grid>
-                  <Grid item xs={3} style={{ marginTop: 10 }}>
+
+                  <Grid item xs={12} md={6} style={{ marginTop: 10 }}>
                     <TextField
-                      type="Number"
-                      id="outlined-basic"
+                      type="number"
                       label="Mobile No"
                       variant="outlined"
                       name="mobile"
                       onChange={handleChangeInput}
+                      fullWidth
                     />
                   </Grid>
                 </Grid>
@@ -298,6 +320,9 @@ function Info() {
               Proceed To Book
             </Button>
           </div>
+        </div>
+        <div>
+          <Toaster />
         </div>
       </div>
       <Footer />

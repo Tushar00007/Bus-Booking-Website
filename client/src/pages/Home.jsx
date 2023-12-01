@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useInsertionEffect } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCity1 } from "../redux/acction/cityNameAction1";
 import { fetchCity2 } from "../redux/acction/cityNameAction2";
 import LoadingButton from "@mui/lab/LoadingButton";
-import "./css/home.css";
 import { fetchTrips } from "../redux/acction/tripsAction";
 import ActionAreaCard from "../components/card/ActionAreaCard";
 import Container from "@mui/material/Container";
@@ -18,6 +17,8 @@ import ticket from "../images/ticket.jpg";
 import CustomerReviewCard from "../components/card/reviewCard";
 import Footer from "../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
+import "./css/home.css";
 const AutocompleteExample = () => {
   let navigate = useNavigate();
   let dispatch = useDispatch();
@@ -39,6 +40,8 @@ const AutocompleteExample = () => {
   };
 
   let handelSearch = async (e) => {
+    if (!inputValue1 || !inputValue2 || !selectedDate)
+      return toast.error("Please enter a value!");
     dispatch(fetchTrips(inputValue1, inputValue2, selectedDate));
   };
   useEffect(() => {
@@ -113,6 +116,7 @@ const AutocompleteExample = () => {
               backgroundColor: "#2c3e50", // Set a different color for hover if needed
             },
           }}
+          className="homeLoadingButton"
         >
           Search
         </LoadingButton>
@@ -152,49 +156,30 @@ const AutocompleteExample = () => {
           <Container>
             <div className="childCustomerReview">
               <CustomerReviewCard
-                customerName="Shubham Agawane"
+                customerName="Aarav Sharma"
                 avatarSrc="https://example.com/avatar.jpg"
                 rating={4.5}
-                message="Great product! I highly recommend it."
+                message="Awesome travel experience with viaBook. Excellent staff."
               />
               <CustomerReviewCard
-                customerName="Santosh Leela"
+                customerName="Isha Singh"
                 avatarSrc="https://example.com/avatar.jpg"
                 rating={5}
-                message="Great product! I highly recommend it."
+                message="Amazing service. Always a best time with viaBook."
               />
               <CustomerReviewCard
-                customerName="Piyush"
+                customerName="Arjun Patel"
                 avatarSrc="https://example.com/avatar.jpg"
                 rating={4}
-                message="Great product! I highly recommend it."
+                message="Bus was clean and the journey was smooth . Reached on time ."
               />
             </div>
           </Container>
         </div>
       </div>
-      {/* Footer */}
-      {/* <footer className="footer">
-        <div className="firstHalf">
-          <h3>
-            <DirectionsBusFilledIcon style={{ fontSize: 30 }} />
-            ViaBook
-          </h3>
-          <p>When you have a chois .Chose reserve </p>
-
-          <p>
-            Reserve offer bus ticket booking through its website ,IOS,and
-            android mobile apps for all major cities.
-          </p>
-
-          <p>ViaBook@ViaBook.com </p>
-        </div>
-        <div className="secondHalf">
-          <h3>Follow Us</h3>
-          <InstagramIcon />
-          <TwitterIcon />
-        </div>
-      </footer> */}
+      <div>
+        <Toaster />
+      </div>
       <Footer />
     </div>
   );

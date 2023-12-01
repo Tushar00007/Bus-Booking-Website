@@ -10,20 +10,20 @@ function Footer() {
           <DirectionsBusFilledIcon style={{ fontSize: 30 }} />
           ViaBook
         </h3>
-        <p>When you have a chois .Chose reserve </p>
+        <p>When you have a chois .Chose ViaBook </p>
 
         <p>
-          Reserve offer bus ticket booking through its website ,IOS,and android
+          ViaBook offer bus ticket booking through its website ,IOS,and android
           mobile apps for all major cities.
         </p>
 
         <p>ViaBook@ViaBook.com </p>
       </div>
-      <div className="secondHalf">
+      {/* <div className="secondHalf">
         <h3>Follow Us</h3>
         <InstagramIcon />
         <TwitterIcon />
-      </div>
+      </div> */}
     </footer>
   );
 }
