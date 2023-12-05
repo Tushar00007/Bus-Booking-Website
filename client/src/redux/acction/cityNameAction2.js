@@ -24,7 +24,7 @@ export const fetchCity2 = (userInput) => {
     try {
       dispatch(fetchCity2Request());
       let response = await fetch(
-        `http://localhost:8035/api/district_name/${userInput}`
+        `https://busbooking-ryds.onrender.com/api/district_name/${userInput}`
       );
       const data = await response.json();
 
