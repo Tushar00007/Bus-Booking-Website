@@ -1,7 +1,7 @@
 import stripe from "stripe";
 let stripeInstance = stripe(process.env.STRIPTOKEN);
 let handelPayment = async (req, res) => {
-  const DOMAIN = "http://localhost:3000";
+  const DOMAIN = "https://soft-tapioca-d4528c.netlify.app/#";
   let data = req.body;
 
   const session = await stripeInstance.checkout.sessions.create({
