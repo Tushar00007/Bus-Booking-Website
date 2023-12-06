@@ -67,7 +67,7 @@ function Receipt() {
           "Content-Type": "application/json",
         };
         const response = await fetch(
-          "http://localhost:8035/api/bk_tic/saveBooking",
+          "https://busbooking-ryds.onrender.com/api/bk_tic/saveBooking",
 
           {
             method: "POST",
@@ -111,7 +111,7 @@ function Receipt() {
       <div className="receipt">
         <div className="receiptContainer">
           <CheckCircleOutlineIcon style={{ color: "#0dc60d", fontSize: 80 }} />
-          <h1>Booking has been confirmed</h1>
+          <h1>Booking has been successful</h1>
           <p>
             Ticket ID:{" "}
             {`${
