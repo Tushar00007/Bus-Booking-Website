@@ -36,6 +36,8 @@ React.js (React Router)
 
 Redux
 
+Vanilla CSS
+
 # Back-End
 
 Node.js
