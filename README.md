@@ -32,17 +32,17 @@ npm start
 
 ### Front-End
 
-React.js (React Router)
+-React.js (React Router)
 
-Redux
+-Redux
 
-Vanilla CSS
+-Vanilla CSS
 
 ### Back-End
 
-Node.js
+-Node.js
 
-MongoDB
+-MongoDB
 
 ### How To Use
 
@@ -56,4 +56,4 @@ MongoDB
 
 ### Skills
 
-JavaScript, HTML, CSS, React.js, Redux, Node.js, MongoDB
+-JavaScript  -HTML  -CSS  -React.js  -Redux  -Node.js  -MongoDB
