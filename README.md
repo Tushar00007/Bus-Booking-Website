@@ -33,11 +33,13 @@ npm start
 # Front-End
 
 React.js (React Router)
+
 Redux
 
 # Back-End
 
 Node.js
+
 MongoDB
 
 # How To Use
