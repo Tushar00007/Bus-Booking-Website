@@ -95,7 +95,7 @@ function Info() {
     );
 
     const stripe = await loadStripe(
-      "pk_test_51NmyexSBxwSrzID7Glui9NRenoHGI6T2W0DVe0DkLkwlHxONGcLiH2wxqxFDorA4ZGtDH1XlaK6PWL8ke5QeJpqd00fZwC2m3i"
+      "pk_test_51OI1w5SBB3DgAgN7qPymGsRjBvGIManiMH9abC8owwFYDL0MHbV7Ih2EeWlNCH1GCTXOqVomzqZk1X6LvoPRhMEX00i016xILx"
     );
     const body = {
       businfo: busAndSeat,
@@ -105,7 +105,7 @@ function Info() {
       "Content-Type": "application/json",
     };
     const response = await fetch(
-      "http://localhost:8035/api/payment/create-checkout-session",
+      "https://busbooking-ryds.onrender.com/api/payment/create-checkout-session",
       {
         method: "POST",
         headers: headers,
