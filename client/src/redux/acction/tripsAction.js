@@ -24,7 +24,7 @@ export const fetchTrips = (inputValue1, inputValue2, selectedDate) => {
     try {
       dispatch(fetchTripsRequest());
       let response = await fetch(
-        `http://localhost:8035/api/bk_tic?from=${inputValue1}&to=${inputValue2}&date=${selectedDate}`
+        `https://busbooking-ryds.onrender.com/api/bk_tic?from=${inputValue1}&to=${inputValue2}&date=${selectedDate}`
       );
 
       const data = await response.json();
