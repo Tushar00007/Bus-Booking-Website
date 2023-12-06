@@ -1,20 +1,20 @@
 # Bus-Booking
 
-# AlmaBetter - Bus-Booking Full Stack project
+### AlmaBetter - Bus-Booking Full Stack project
 
 This is Bu-Booking Full Stack project that AlmaBetter has provided .
 
 # Deployment
 
-# Front-End
+## Front-End
 
 https://soft-tapioca-d4528c.netlify.app/
 
-# Back-End
+## Back-End
 
 https://busbooking-ryds.onrender.com
 
-# Run Locally
+## Run Locally
 
 Clone the project
 
@@ -28,9 +28,9 @@ Start the server
 
 npm start
 
-# Teck Stack
+## Teck Stack
 
-# Front-End
+### Front-End
 
 React.js (React Router)
 
@@ -38,13 +38,13 @@ Redux
 
 Vanilla CSS
 
-# Back-End
+### Back-End
 
 Node.js
 
 MongoDB
 
-# How To Use
+## How To Use
 
 1. First Search Your Bus
 2. Select Your Bus
@@ -54,6 +54,6 @@ MongoDB
 6. Click On Process to Book
 7. Pay for Ticket
 
-# Skills
+## Skills
 
 JavaScript, HTML, CSS, React.js, Redux, Node.js, MongoDB
