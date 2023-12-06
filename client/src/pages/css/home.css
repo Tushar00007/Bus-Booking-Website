@@ -1,31 +1,40 @@
 .busSearch {
-  background-image: url("../../images/vecteezy_people-on-bus-stop-father-with-little-daughter_16263385.jpg");
+  background-image: url("../../images/cartoon bus.jpg");
 
-  height: 80vh;
+  margin-top: 30px;
+  height: 100vh;
+ 
   display: flex;
 
-  align-items: center;
+  align-items:center ;
   justify-content: center;
+  box-shadow: 5px 5px;
+  
 }
 
 .busSearchForm {
   display: flex;
-  background-color: white;
-  padding: 0.7rem;
-  border-radius: 1rem;
+  background-color: #efe1e1;
+  margin-bottom: 100px;
+  padding: 0px;
+  border-radius: 8px;
 }
 .MuiInputBase-input {
   border: none !important;
 }
 .from {
   margin-top: 0.4rem;
+
 }
 .to {
   margin-top: 0.4rem;
   margin-left: 0.1rem;
+
+
 }
 .datePicker {
   margin-left: 0.1rem;
+  
 }
 
 .achievement {
@@ -59,6 +68,7 @@
   background-color: #3f51b5;
   color: white;
   display: flex;
+  font-family: "Times New Roman", Times, serif;
 }
 .firstHalf {
   padding-left: 3rem;
@@ -84,6 +94,7 @@
   .busSearch {
     height: 50vh;
     flex-direction: column;
+   
   }
   .busSearchForm {
     margin-top: 1rem;
