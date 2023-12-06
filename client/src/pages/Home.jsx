@@ -12,8 +12,8 @@ import { fetchTrips } from "../redux/acction/tripsAction";
 import ActionAreaCard from "../components/card/ActionAreaCard";
 import Container from "@mui/material/Container";
 import bus from "../images/bus.jpg";
-import people from "../images/people.jpg";
-import ticket from "../images/ticket.jpg";
+import people from "../images/peoples.jpg";
+import ticket from "../images/tickets.jpg";
 import CustomerReviewCard from "../components/card/reviewCard";
 import Footer from "../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
@@ -67,7 +67,7 @@ const AutocompleteExample = () => {
   return (
     <div className="Home">
       {/* Bus Search */}
-      <div className="busSearch">
+      <div className="busSearch"  style={{borderRadius:"13px"}}>
         <form className="busSearchForm">
           <div className="from">
             <Autocomplete
@@ -108,12 +108,12 @@ const AutocompleteExample = () => {
         <LoadingButton
           variant="contained"
           loading={loading}
-          style={{ padding: "20px 8px", marginLeft: ".3rem" }}
+          style={{ padding: "15px 5px", marginLeft: ".3rem", fontFamily:"cursive", marginBottom:"100px", marginLeft:"5px"}}
           onClick={handelSearch}
           sx={{
-            backgroundColor: "#3f51b5", // Set your desired background color
+            backgroundColor: "#e51c23", // Set your desired background color
             "&:hover": {
-              backgroundColor: "#2c3e50", // Set a different color for hover if needed
+              backgroundColor: "#891015", // Set a different color for hover if needed
             },
           }}
           className="homeLoadingButton"
@@ -123,11 +123,11 @@ const AutocompleteExample = () => {
       </div>
       {/*achievement*/}
       <Container>
-        <h2 style={{ marginTop: 2, color: "#3f51b5" }}>
-          Your Road to Joyful Journeys!
+        <h2 style={{ marginTop: 20, color: "#e51c23", fontWeight:"bold" ,fontFamily:"cursive" ,boxShadow:"20px,20px"}}>
+          Joyful Journeys !
         </h2>
-        <div className="achievement">
-          <ActionAreaCard
+        <div className="achievement" >
+          <ActionAreaCard 
             img={bus}
             alt={"Bus Image"}
             heading={"1000+"}
@@ -136,39 +136,39 @@ const AutocompleteExample = () => {
           <ActionAreaCard
             img={people}
             alt={"Happy Customer"}
-            heading={"1+ Millon"}
-            para={"Happy Customera"}
+            heading={"2+ Millon"}
+            para={"Happy Customer"}
           />
           <ActionAreaCard
             img={ticket}
             alt={"Ticket"}
-            heading={"2000+"}
+            heading={"3000+"}
             para={"Tickets book everyday"}
           />
         </div>
       </Container>
       {/* Customer review */}
-      <div className="review">
-        <h2>Here's what a few of our customers </h2>
-        <h2>have to say about us </h2>
+      <div className="review" style={{fontFamily:"cursive", marginBottom:10}}>
+        {/*<h2>Here's what a few of our customers </h2>*/}
+        <h2 style={{fontWeight:"bold"}}>Customers Reviews </h2>
 
-        <div className="customerReview">
+        <div className="customerReview"  style={{backgroundColor:"#323232"}} >
           <Container>
-            <div className="childCustomerReview">
+            <div className="childCustomerReview" >
               <CustomerReviewCard
-                customerName="Aarav Sharma"
+                customerName="Mukesh Jagwal"
                 avatarSrc="https://example.com/avatar.jpg"
                 rating={4.5}
-                message="Awesome travel experience with viaBook. Excellent staff."
+                message="Awesome travel experience with MakeMyTrip. Excellent staff."
               />
               <CustomerReviewCard
-                customerName="Isha Singh"
+                customerName="Sandip Jaiswal"
                 avatarSrc="https://example.com/avatar.jpg"
                 rating={5}
-                message="Amazing service. Always a best time with viaBook."
+                message="Amazing service. Always a best time with MakeMyTrip."
               />
               <CustomerReviewCard
-                customerName="Arjun Patel"
+                customerName="Amit Mishra"
                 avatarSrc="https://example.com/avatar.jpg"
                 rating={4}
                 message="Bus was clean and the journey was smooth . Reached on time ."
