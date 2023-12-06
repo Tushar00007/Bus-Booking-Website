@@ -10,9 +10,7 @@ This is Bu-Booking Full Stack project that AlmaBetter has provided .
 
 https://soft-tapioca-d4528c.netlify.app/
 
-### Back-End
 
-https://busbooking-ryds.onrender.com
 
 ## Run Locally
 
